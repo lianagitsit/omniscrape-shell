@@ -1,0 +1,12 @@
+version: '2.0'
+
+services:
+  postgres:
+    image: postgres:12.2
+    environment: 
+      - POSTGRES_PASSWORD=muysecure
+    # TODO: set a volume
+  nginx:
+    image: nginx:1.22.1
+  # TODO: node/express server
+  # TODO: React app
