@@ -3,7 +3,7 @@
 FROM node:latest
 
 # Directory within the Docker environment
-WORKDIR /usr/src/app
+WORKDIR /app
 
 # Copies package.json and package-lock.json to Docker env
 COPY package*.json ./
@@ -27,7 +27,7 @@ CMD ["npm", "start"]
 # docker images
 
 # run container:
-# docker run --name omniscrape-ui -p 3000:3000 <username>/omniscrape-ui
+# docker run --name omniscrape-ui -p 3000:3000 lianagitsit/omniscrape-ui
 
 # view running container:
 # docker ps
