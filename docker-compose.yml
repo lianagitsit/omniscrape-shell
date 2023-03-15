@@ -9,6 +9,19 @@ services:
   # nginx:
     # image: nginx:1.22.1
   # TODO: node/express server
+  server:
+    build:
+      context: ./server/
+    command: /app/node_modules/.bin/nodemon src/index.ts
+    volumes:
+      - ./server/:/app
+      - /app/node_modules
+    ports:
+      - "8080:8080"
+    # env_file: ./server/.env # TODO - uncomment this to auto-load your .env file!
+    environment:
+      - NODE_ENV=development
+      - CHOKIDAR_USEPOLLING=true
   # React app
   frontend:
      build:
