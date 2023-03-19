@@ -8,7 +8,7 @@ services:
     # TODO: set a volume
   # nginx:
     # image: nginx:1.22.1
-  # TODO: node/express server
+  # node/express server
   server:
     build:
       context: ./server/
