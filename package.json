@@ -1,0 +1,21 @@
+{
+  "name": "omniscrape-shell",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lianagitsit/omniscrape-shell.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/lianagitsit/omniscrape-shell/issues"
+  },
+  "homepage": "https://github.com/lianagitsit/omniscrape-shell#readme",
+  "devDependencies": {
+    "@playwright/test": "^1.31.2"
+  }
+}

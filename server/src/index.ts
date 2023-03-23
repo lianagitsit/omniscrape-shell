@@ -3,6 +3,8 @@ const app = express()
 // const path = require('path');
 const port = 8080
 
+const scraper = require('./scrape');
+
 // const CLIENT_BUILD_PATH = path.join(__dirname, '../../client/build');
 app.use(express.json())
 
@@ -18,6 +20,7 @@ app.use((req: any, res: any, next: any) => {
 
 app.get('/api', (req: any, res: any) => {
   res.set('Content-Type', 'application/json');
+  scraper.scrape();
   let data = {
     message: "This is coming from my SERVER!"
   }
