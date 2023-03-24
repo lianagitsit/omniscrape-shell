@@ -7,13 +7,23 @@ async function scrape() {
     const page = await browser.newPage();
 
     await page.goto('https://phoenixnlotus.com/collections/tarot-decks?page=1');
+    
+    const pageTitle = await page.title();
 
-    const decks = await page.locator(".grid-product__meta").allTextContents();
+    const deck = await page.locator(".grid-product__meta").filter({hasText: 'Light Visions'});
 
-    decks.forEach((deck: any) => console.log(deck))
+    const deckName = await deck.locator(".grid-product__title").textContent();
+    
+    const price = await deck.locator(".grid-product__price").textContent();
 
     await page.waitForTimeout(5000);
     await browser.close();
+
+    return {
+        pageTitle,
+        deckName,
+        price
+    };
 }
 
 module.exports = { scrape };

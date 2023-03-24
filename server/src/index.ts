@@ -20,11 +20,11 @@ app.use((req: any, res: any, next: any) => {
 
 app.get('/api', (req: any, res: any) => {
   res.set('Content-Type', 'application/json');
-  scraper.scrape();
-  let data = {
-    message: "This is coming from my SERVER!"
-  }
-  res.send(JSON.stringify(data, null, 2));
+
+  (async () => {
+    const data = await scraper.scrape();
+    res.send(JSON.stringify(data, null, 2));
+  })()
 })
 
 app.listen(port, () => {
