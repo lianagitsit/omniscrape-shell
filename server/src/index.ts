@@ -4,6 +4,9 @@ const app = express()
 const port = 8080
 
 const scraper = require('./scrape');
+const { PrismaClient } = require('@prisma/client');
+
+const prisma = new PrismaClient();
 
 // const CLIENT_BUILD_PATH = path.join(__dirname, '../../client/build');
 app.use(express.json())
@@ -21,9 +24,42 @@ app.use((req: any, res: any, next: any) => {
 app.get('/api', (req: any, res: any) => {
   res.set('Content-Type', 'application/json');
 
+  try {
+    (async () => {
+      const allScans = await prisma.scans.findMany();
+      return res.send(allScans)
+    })()
+  } catch (error) {
+    return res.json({
+        success: false,
+        message: error
+    });
+  }
+})
+
+app.get('/api/scrape', (req: any, res: any) => {
   (async () => {
-    const data = await scraper.scrape();
-    res.send(JSON.stringify(data, null, 2));
+    const { pageTitle, deckName, price } = await scraper.scrape();
+    console.log({ pageTitle, deckName, price })
+    const zPrice = price.trim().slice(1);
+    try {
+      const newScan = await prisma.scans.create({
+          data: {
+              url: pageTitle,
+              deck: deckName,
+              price: parseFloat(zPrice)
+          }
+      });
+      return res.send({
+          success: true,
+          data: newScan
+      });
+    } catch (error) {
+      return res.json({
+          success: false,
+          message: error
+      });
+    }
   })()
 })
 
