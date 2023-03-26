@@ -19,6 +19,8 @@ RUN npx playwright install
 
 COPY . .
 
+RUN npx prisma generate
+
 EXPOSE 8080
 
 CMD ["npm", "start"]
