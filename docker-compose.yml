@@ -1,11 +1,15 @@
 version: '3.8'
 
 services:
-  # postgres:
-  #   image: postgres:12.2
-  #   environment: 
-  #     - POSTGRES_PASSWORD=muysecure
-    # TODO: set a volume
+  database:
+    image: postgres:latest
+    ports:
+      - 5432:5432
+    # The `env_file` tag allows us to declare an environment file
+    env_file:
+      - .env # The name of your environment file (the one at the repository root)
+    volumes: 
+    - ./db-data/:/var/lib/postgresql/data/
   # nginx:
     # image: nginx:1.22.1
   # node/express server
