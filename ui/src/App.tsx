@@ -48,15 +48,57 @@ function BasicTable({ rows }: { rows: any}) {
   );
 }
 
+function DeckSelect({deck, onSelect}: {deck: any, onSelect: any}) {
+  return (
+    <Box sx={{ minWidth: 120 }}>
+        <FormControl fullWidth>
+          <InputLabel id="demo-simple-select-label">Deck</InputLabel>
+          <Select
+            labelId="demo-simple-select-label"
+            id="demo-simple-select"
+            value={deck}
+            label="Deck"
+            onChange={onSelect}
+          >
+            <MenuItem value={"Light Visions Tarot"}>Light Visions Tarot</MenuItem>
+          </Select>
+        </FormControl>
+      </Box>
+  )
+}
+
+function SiteSelect({site, onSelect}: {site: any, onSelect: any}) {
+  return (
+    <Box sx={{ minWidth: 120 }}>
+        <FormControl fullWidth>
+          <InputLabel id="demo-simple-select-label">Site</InputLabel>
+          <Select
+            labelId="demo-simple-select-label"
+            id="demo-simple-select"
+            value={site}
+            label="Site"
+            onChange={onSelect}
+          >
+            <MenuItem value={"Phoenix & Lotus"}>Phoenix & Lotus</MenuItem>
+          </Select>
+        </FormControl>
+      </Box>
+  )
+}
+
 
 function App() {
   // const { data: srapeData, loading: scrapeLoading } = useFetch("http://localhost:8080/api/scrape");
   const { data, loading } = useFetch("http://localhost:8080/api");
 
   const [deck, setDeck] = React.useState('');
-
-  const handleChange = (event: SelectChangeEvent) => {
+  const handleDeckChange = (event: SelectChangeEvent) => {
     setDeck(event.target.value as string);
+  };
+
+  const [site, setSite] = React.useState('');
+  const handleSiteChange = (event: SelectChangeEvent) => {
+    setSite(event.target.value as string);
   };
 
   return (
@@ -64,23 +106,9 @@ function App() {
       <header className="App-header">
         Scrapey Wapey
       </header>
-      <Box sx={{ minWidth: 120 }}>
-        <FormControl fullWidth>
-          <InputLabel id="demo-simple-select-label">Deck</InputLabel>
-          <Select
-            labelId="demo-simple-select-label"
-            id="demo-simple-select"
-            value={deck}
-            label="Age"
-            onChange={handleChange}
-          >
-            <MenuItem value={"Light Visions Tarot"}>Light Visions Tarot</MenuItem>
-            {/* <MenuItem value={20}>Twenty</MenuItem>
-            <MenuItem value={30}>Thirty</MenuItem> */}
-          </Select>
-        </FormControl>
-        <Button variant='contained'>Scrape</Button>
-      </Box>
+      <DeckSelect deck={deck} onSelect={handleDeckChange} />
+      <SiteSelect site={site} onSelect={handleSiteChange} />
+      <Button variant='contained'>Scrape</Button>
       <BasicTable rows={data} />
     </div>
   );
