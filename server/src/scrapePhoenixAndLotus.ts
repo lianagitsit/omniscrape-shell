@@ -1,6 +1,6 @@
 const playwright = require('playwright');
 
-async function scrape() {
+async function scrape(deckTitle: string) {
     console.log("scraping")
     const browser = await playwright.chromium.launch({ headless: true });
 
@@ -10,7 +10,7 @@ async function scrape() {
     
     const pageTitle = await page.title();
 
-    const deck = await page.locator(".grid-product__meta").filter({hasText: 'Light Visions'});
+    const deck = await page.locator(".grid-product__meta").filter({hasText: deckTitle});
 
     const deckName = await deck.locator(".grid-product__title").textContent();
     

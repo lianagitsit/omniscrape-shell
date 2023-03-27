@@ -3,7 +3,7 @@ const app = express()
 // const path = require('path');
 const port = 8080
 
-const scraper = require('./scrape');
+const phoenixAndLotusScraper = require('./scrapePhoenixAndLotus');
 const { PrismaClient } = require('@prisma/client');
 
 const prisma = new PrismaClient();
@@ -37,10 +37,9 @@ app.get('/api/scans', (req: any, res: any) => {
   }
 })
 
-app.get('/api/scrape', (req: any, res: any) => {
+app.post('/api/scrape', (req: any, res: any) => {
   (async () => {
-    const { pageTitle, deckName, price } = await scraper.scrape();
-    console.log({ pageTitle, deckName, price })
+    const { pageTitle, deckName, price } = await phoenixAndLotusScraper.scrape(req.body.deckTitle);
     const zPrice = price.trim().slice(1);
     try {
       const newScan = await prisma.scans.create({
