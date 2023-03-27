@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import './App.css';
 import useScans from './useScans';
 import moment from 'moment';
@@ -88,15 +88,14 @@ function SiteSelect({site, onSelect}: {site: string, onSelect: (event: SelectCha
   )
 }
 
-function ScrapeButton({deck, site}: {deck: string, site: string}) {
-  return (
-    <Button variant='contained'>Scrape</Button>
-  )
-}
-
-
 function App() {
-  // const { data: srapeData, loading: scrapeLoading } = useFetch("http://localhost:8080/api/scrape");
+  const { data, loading } = useScans("http://localhost:8080/api/scans");
+  const [scans, setScans] = useState(data);
+  
+  useEffect(() => {
+    if (!data.length) return;
+    setScans(data);
+  }, [data])
 
   const [deck, setDeck] = React.useState('');
   const handleDeckChange = (event: SelectChangeEvent) => {
@@ -108,6 +107,21 @@ function App() {
     setSite(event.target.value as string);
   };
 
+  const handleClick = () => {
+    fetch('http://localhost:8080/api/scrape', {
+      method: 'POST',
+      headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({deckTitle: deck}),
+      cache: 'default'
+    }).then((res) => res.json())
+    .then((data) => {
+        setScans((prev) => [...prev, data.data]);
+    })
+  }
+
   return (
     <div className="App">
       <h1 className="App-header">
@@ -115,8 +129,8 @@ function App() {
       </h1>
       <DeckSelect deck={deck} onSelect={handleDeckChange} />
       <SiteSelect site={site} onSelect={handleSiteChange} />
-      <ScrapeButton deck={deck} site={site}/>
-      <ScansTable />
+      <Button variant='contained' onClick={handleClick}>Scrape</Button>
+      <ScansTable scans={scans} />
     </div>
   );
 }
