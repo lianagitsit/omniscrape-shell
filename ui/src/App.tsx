@@ -16,10 +16,9 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 
-function ScansTable() {
-  const { data, loading } = useScans("http://localhost:8080/api/scans");
+function ScansTable({scans}: {scans: any}) {
+  let rows = scans.slice(0).reverse();
 
-  let rows = data;
   return (
     <TableContainer component={Paper}>
       <Table sx={{ minWidth: 650 }} aria-label="simple table">
