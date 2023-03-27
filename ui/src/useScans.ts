@@ -13,7 +13,7 @@ type FetchRes = {
     error?: string
 }
 
-const useFetch = (url: string): FetchRes => {
+const useScans = (url: string): FetchRes => {
     const [data, setData] = useState([]);
     const [loading, setLoading] = useState(true);
     const [loaded, setLoaded] = useState(false);
@@ -33,4 +33,4 @@ const useFetch = (url: string): FetchRes => {
     return { data, loading };
 };
 
-export default useFetch;
+export default useScans;

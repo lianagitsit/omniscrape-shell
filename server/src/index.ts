@@ -21,7 +21,7 @@ app.use((req: any, res: any, next: any) => {
   next();
 });
 
-app.get('/api', (req: any, res: any) => {
+app.get('/api/scans', (req: any, res: any) => {
   res.set('Content-Type', 'application/json');
 
   try {

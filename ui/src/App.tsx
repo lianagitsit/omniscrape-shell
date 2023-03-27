@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import './App.css';
-import useFetch from './useFetch';
+import useScans from './useScans';
 import moment from 'moment';
 import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
@@ -16,7 +16,10 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 
-function BasicTable({ rows }: { rows: any}) {
+function ScansTable() {
+  const { data, loading } = useScans("http://localhost:8080/api/scans");
+
+  let rows = data;
   return (
     <TableContainer component={Paper}>
       <Table sx={{ minWidth: 650 }} aria-label="simple table">
@@ -48,7 +51,7 @@ function BasicTable({ rows }: { rows: any}) {
   );
 }
 
-function DeckSelect({deck, onSelect}: {deck: any, onSelect: any}) {
+function DeckSelect({deck, onSelect}: {deck: string, onSelect: (event: SelectChangeEvent) => void}) {
   return (
     <Box sx={{ minWidth: 120 }}>
         <FormControl fullWidth>
@@ -67,7 +70,7 @@ function DeckSelect({deck, onSelect}: {deck: any, onSelect: any}) {
   )
 }
 
-function SiteSelect({site, onSelect}: {site: any, onSelect: any}) {
+function SiteSelect({site, onSelect}: {site: string, onSelect: (event: SelectChangeEvent) => void}) {
   return (
     <Box sx={{ minWidth: 120 }}>
         <FormControl fullWidth>
@@ -86,10 +89,15 @@ function SiteSelect({site, onSelect}: {site: any, onSelect: any}) {
   )
 }
 
+function ScrapeButton({deck, site}: {deck: string, site: string}) {
+  return (
+    <Button variant='contained'>Scrape</Button>
+  )
+}
+
 
 function App() {
   // const { data: srapeData, loading: scrapeLoading } = useFetch("http://localhost:8080/api/scrape");
-  const { data, loading } = useFetch("http://localhost:8080/api");
 
   const [deck, setDeck] = React.useState('');
   const handleDeckChange = (event: SelectChangeEvent) => {
@@ -103,13 +111,13 @@ function App() {
 
   return (
     <div className="App">
-      <header className="App-header">
+      <h1 className="App-header">
         Scrapey Wapey
-      </header>
+      </h1>
       <DeckSelect deck={deck} onSelect={handleDeckChange} />
       <SiteSelect site={site} onSelect={handleSiteChange} />
-      <Button variant='contained'>Scrape</Button>
-      <BasicTable rows={data} />
+      <ScrapeButton deck={deck} site={site}/>
+      <ScansTable />
     </div>
   );
 }
