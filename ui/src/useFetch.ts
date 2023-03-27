@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react";
 
 type ApiData = {
-    pageTitle?: string;
-    deckName?: string;
-    price?: string;
-}
+    url?: string;
+    deck?: string;
+    price?: number;
+    createdAt: string;
+}[];
 
 type FetchRes = {
     data: ApiData,
@@ -13,7 +14,7 @@ type FetchRes = {
 }
 
 const useFetch = (url: string): FetchRes => {
-    const [data, setData] = useState({});
+    const [data, setData] = useState([]);
     const [loading, setLoading] = useState(true);
     const [loaded, setLoaded] = useState(false);
     // const [error, seterror] = useState("");
