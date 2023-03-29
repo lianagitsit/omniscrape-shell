@@ -89,7 +89,7 @@ function SiteSelect({site, onSelect}: {site: string, onSelect: (event: SelectCha
 }
 
 function App() {
-  const { data, loading } = useScans("http://localhost:8080/api/scans");
+  const { data, loading } = useScans("/api/scans");
   const [scans, setScans] = useState(data);
   
   useEffect(() => {
@@ -108,7 +108,7 @@ function App() {
   };
 
   const handleClick = () => {
-    fetch('http://localhost:8080/api/scrape', {
+    fetch('/api/scrape', {
       method: 'POST',
       headers: {
           'Accept': 'application/json',

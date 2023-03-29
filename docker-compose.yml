@@ -10,8 +10,13 @@ services:
       - .env # The name of your environment file (the one at the repository root)
     volumes: 
     - ./db-data/:/var/lib/postgresql/data/
-  # nginx:
-    # image: nginx:1.22.1
+  nginx:
+    image: nginx:latest
+    ports:
+      - 80:80
+    volumes:
+      - ./ui/build:/usr/share/nginx/html
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf
   # node/express server
   server:
     build:

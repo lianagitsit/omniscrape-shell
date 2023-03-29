@@ -1,6 +1,5 @@
 const express = require('express')
 const app = express()
-// const path = require('path');
 const port = 8080
 
 const phoenixAndLotusScraper = require('./scrapePhoenixAndLotus');
@@ -8,12 +7,11 @@ const { PrismaClient } = require('@prisma/client');
 
 const prisma = new PrismaClient();
 
-// const CLIENT_BUILD_PATH = path.join(__dirname, '../../client/build');
 app.use(express.json())
 
 // Add Access Control Allow Origin headers
 app.use((req: any, res: any, next: any) => {
-  res.setHeader("Access-Control-Allow-Origin", "http://localhost:3000");
+  res.setHeader("Access-Control-Allow-Origin", "http://localhost:80");
   res.header(
     "Access-Control-Allow-Headers",
     "Origin, X-Requested-With, Content-Type, Accept"
