@@ -9,4 +9,5 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: '19'
+      - run: npm run build
       - run: npm test
