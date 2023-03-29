@@ -11,5 +11,5 @@ jobs:
           node-version: '19'
       - name: Run Tests
         working-directory: ./ui
-        run: npm run build
+        run: npm install -g react-scripts
         run: npm test
