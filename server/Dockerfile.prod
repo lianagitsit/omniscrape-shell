@@ -10,9 +10,6 @@ ENV PATH /app/node_modules/.bin:$PATH
 
 COPY package*.json ./
 
-# Install from package-lock.json
-# RUN npm ci -qy
-
 RUN npm install 
 
 RUN npx playwright install
@@ -24,3 +21,5 @@ RUN npx prisma generate
 EXPOSE 8080
 
 CMD ["npm", "start"]
+
+

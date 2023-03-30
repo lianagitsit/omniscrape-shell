@@ -1,0 +1,23 @@
+FROM node:latest
+
+# Get the latest version of Playwright
+FROM mcr.microsoft.com/playwright:v1.30.0-focal
+
+WORKDIR /app
+
+# Set the environment path to node_modules/.bin
+ENV PATH /app/node_modules/.bin:$PATH
+
+COPY package*.json ./
+
+RUN npm install 
+
+RUN npx playwright install
+
+COPY . .
+
+RUN npx prisma generate
+
+EXPOSE 8080
+
+CMD ["npm", "start"]
