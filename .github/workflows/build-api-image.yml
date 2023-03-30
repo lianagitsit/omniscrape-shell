@@ -15,10 +15,9 @@ jobs:
         uses: docker/build-push-action@v2
         with:
           context: .
-          file: ./Dockerfile.prod
+          file: ./Dockerfile
           push: true
           tags: omniscrape-api
           registry: registry.digitalocean.com
-          host: ${{ secrets.SSH_HOST }}
-          key: ${{ secrets.SSH_KEY }}
-          username: ${{ secrets.SSH_USERNAME }}
+          password: ${{ secrets.DIGITALOCEAN_PASSWORD }}
+          username: ${{ secrets.DIGITALOCEAN_USERNAME }}
