@@ -11,17 +11,11 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
+      - name: Build latest
+        run: docker build -t registry.digitalocean.com/lgm-registry/omniscrape-api:latest .
       - name: Install doctl 
         uses: digitalocean/action-doctl@v2
         with:
           token: ${{ secrets.DIGITALOCEAN_PASSWORD }}
-      - name: Build and push Docker image
-        uses: docker/build-push-action@v2
-        with:
-          context: .
-          file: ./server/Dockerfile.prod
-          push: true
-          tags: omniscrape-api:latest
-          registry: registry.digitalocean.com
-          password: ${{ secrets.DIGITALOCEAN_PASSWORD }}
-          username: ${{ secrets.DIGITALOCEAN_USERNAME }}
+      - name: Push to Digital Ocean Registry
+        run: docker push registry.digitalocean.com/lgm-registry/omniscrape-api:latest
