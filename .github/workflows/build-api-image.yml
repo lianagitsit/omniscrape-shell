@@ -17,7 +17,7 @@ jobs:
           context: .
           file: ./server/Dockerfile.prod
           push: true
-          tags: omniscrape-api
+          tags: omniscrape-api:latest
           registry: registry.digitalocean.com
           password: ${{ secrets.DIGITALOCEAN_PASSWORD }}
           username: ${{ secrets.DIGITALOCEAN_USERNAME }}
