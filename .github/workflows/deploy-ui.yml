@@ -31,7 +31,9 @@ jobs:
           script: |
             whoami
             ls
-            scp -r build/ ${{ secrets.SSH_USERNAME }}@${{ secrets.SSH_HOST }}:/var/www/app/ui
+            touch lianatest.txt
+            cat lianatest.txt | ssh ${{ secrets.SSH_USERNAME }}@${{ secrets.SSH_HOST }} 'cat -> /tmp/remotefile.txt' 
+
 
       # test
       # - name: Copy static files
