@@ -29,13 +29,13 @@ jobs:
         run: npm ci
 
       - name: Copy static files
-        run: scp -r build/ ${{ secrets.SSH_USERNAME }}@${{ SSH_HOST }}:/var/www/app/ui
+        run: scp -r build/ ${{ secrets.SSH_USERNAME }}@${{ secrets.SSH_HOST }}:/var/www/app/ui
 
       - name: Restart nginx
         uses: appleboy/ssh-action@master
         with:
-          host: droplet_ip
-          username: user
-          password: ${{ secrets.DROPLET_PASSWORD }}
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USERNAME }}
+          password: ${{ secrets.SSH_KEY }}
           script: |
             sudo service nginx restart
