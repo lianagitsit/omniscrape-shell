@@ -15,13 +15,12 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      # - name: Install dependencies
-      #   run: npm ci
+      - name: Install dependencies
+        run: npm ci
 
-      # - name: Build static files
-      #   run: npm run build
+      - name: Build static files
+        run: npm run build
 
-      # login pls
       - name: Login to SSH
         uses: appleboy/ssh-action@master
         with:
