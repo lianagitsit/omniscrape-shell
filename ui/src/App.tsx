@@ -89,7 +89,7 @@ function SiteSelect({site, onSelect}: {site: string, onSelect: (event: SelectCha
 }
 
 function App() {
-  const { data, loading } = useScans("/api/scans");
+  const { data } = useScans("/api/scans");
   const [scans, setScans] = useState(data);
   
   useEffect(() => {
