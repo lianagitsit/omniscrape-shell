@@ -27,14 +27,15 @@ jobs:
           host: ${{ secrets.SSH_HOST }}
           username: ${{ secrets.SSH_USERNAME }}
           key: ${{ secrets.SSH_KEY }}
-          script: whoami
+          script: scp -r build/ /var/www/app/ui
+
 
       # test
-      - name: Copy static files
-        run: |
-          mkdir -p $HOME/.ssh && touch $HOME/.ssh/known_hosts
-          echo "${{ secrets.SSH_HOST_KEY }}" >> $HOME/.ssh/known_hosts 
-          scp -r build/ ${{ secrets.SSH_USERNAME }}@${{ secrets.SSH_HOST }}:/var/www/app/ui
+      # - name: Copy static files
+      #   run: |
+      #     mkdir -p $HOME/.ssh && touch $HOME/.ssh/known_hosts
+      #     echo "${{ secrets.SSH_HOST_KEY }}" >> $HOME/.ssh/known_hosts 
+      #     scp -r build/ ${{ secrets.SSH_USERNAME }}@${{ secrets.SSH_HOST }}:/var/www/app/ui
 
       # - name: Restart nginx
       #   uses: appleboy/ssh-action@master
