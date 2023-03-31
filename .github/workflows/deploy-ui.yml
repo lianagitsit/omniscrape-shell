@@ -31,7 +31,7 @@ jobs:
           script: |
             whoami
             ls
-            scp -r build/ ${{ secrets.SSH_USERNAME }}@${{ secrets.SSH_HOST }}:/var/www/app/ui
+            scp StrictHostKeyChecking=no -r build/ ${{ secrets.SSH_USERNAME }}@${{ secrets.SSH_HOST }}:/var/www/app/ui
 
 
       # test
