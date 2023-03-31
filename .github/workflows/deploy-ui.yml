@@ -31,8 +31,7 @@ jobs:
           script: |
             whoami
             ls
-            touch lianatest.txt
-            cat lianatest.txt | ssh ${{ secrets.SSH_USERNAME }}@${{ secrets.SSH_HOST }} 'cat -> /tmp/remotefile.txt' 
+            scp -i $HOME/.ssh/omniscrape.pub -r build/ ${{ secrets.SSH_USERNAME }}@${{ secrets.SSH_HOST }}:/var/www/app/ui
 
 
       # test
