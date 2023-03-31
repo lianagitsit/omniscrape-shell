@@ -12,7 +12,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
       - name: Build latest
-        run: docker build -t registry.digitalocean.com/lgm-registry/omniscrape-api:latest .
+        run: docker build -t registry.digitalocean.com/lgm-registry/omniscrape-api:latest -f Dockerfile.prod .
       - name: Install doctl 
         uses: digitalocean/action-doctl@v2
         with:
