@@ -1,5 +1,6 @@
 name: Build and Push Docker Image
 
+# TODO: Make this workflow run only on changes to /server
 on:
   push:
     branches:
@@ -38,6 +39,7 @@ jobs:
       - name: Log in to DO Container Registry 
         run: doctl registry login --expiry-seconds 600
 
+      # TODO: Make this work
       - name: Remove all old images
         run: if [ ! -z "$(doctl registry repository list | grep "$(echo $IMAGE_NAME)")" ]; then doctl registry repository delete-manifest $(echo $IMAGE_NAME) $(doctl registry repository list-tags $(echo $IMAGE_NAME) | grep -o "sha.*") --force; else echo "No repository"; fi
 
