@@ -11,7 +11,7 @@ on:
 jobs:
   install:
     runs-on: ubuntu-latest
-        defaults:
+    defaults:
       run:
         working-directory: server
 
