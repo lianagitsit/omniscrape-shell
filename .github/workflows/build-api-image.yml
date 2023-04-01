@@ -19,9 +19,9 @@ env:
 jobs:
   build-and-push:
     runs-on: ubuntu-latest
-        defaults:
-          run:
-            working-directory: server
+      defaults:
+        run:
+          working-directory: server
 
     steps:
       - name: Checkout code
