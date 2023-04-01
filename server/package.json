@@ -7,6 +7,9 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "nodemon src/index.ts"
   },
+  "prisma": {
+    "schema": "prisma/schema.prisma"
+  },
   "author": "",
   "license": "ISC",
   "dependencies": {
