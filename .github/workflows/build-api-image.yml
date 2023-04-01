@@ -1,17 +1,17 @@
 name: Build and Push Docker Image
 
 # TODO: Make this workflow run only on changes to /server
-on:
-  push:
-    paths:
-      - "server/**"
-
 # on:
-#   workflow_dispatch:
-#     inputs:
-#       version:
-#         description: 'Image version'
-#         required: true
+#   push:
+#     paths:
+#       - "server/**"
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Image version'
+        required: true
 
 env:
   REGISTRY: "registry.digitalocean.com/lgm-registry"
