@@ -1,16 +1,16 @@
 name: Build and Push Docker Image
 
-# on:
-#   push:
-#     branches:
-#       - main
-
 on:
-  workflow_dispatch:
-    inputs:
-      version:
-        description: 'Image version'
-        required: true
+  push:
+    branches:
+      - main
+
+# on:
+#   workflow_dispatch:
+#     inputs:
+#       version:
+#         description: 'Image version'
+#         required: true
 
 env:
   REGISTRY: "registry.digitalocean.com/lgm-registry"
@@ -19,18 +19,27 @@ env:
 jobs:
   build-and-push:
     runs-on: ubuntu-latest
+        defaults:
+          run:
+            working-directory: server
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
+
       - name: Build latest
-        run: docker build -t $(echo $REGISTRY)/$(echo $IMAGE_NAME) -f ./server/Dockerfile.prod .
+        run: docker build -t $(echo $REGISTRY)/$(echo $IMAGE_NAME) -f Dockerfile.prod .
+
       - name: Install doctl 
         uses: digitalocean/action-doctl@v2
         with:
           token: ${{ secrets.DIGITALOCEAN_PASSWORD }}
+
       - name: Log in to DO Container Registry 
         run: doctl registry login --expiry-seconds 600
+
       - name: Remove all old images
         run: if [ ! -z "$(doctl registry repository list | grep "$(echo $IMAGE_NAME)")" ]; then doctl registry repository delete-manifest $(echo $IMAGE_NAME) $(doctl registry repository list-tags $(echo $IMAGE_NAME) | grep -o "sha.*") --force; else echo "No repository"; fi
+
       - name: Push to Digital Ocean Registry
         run: docker push $(echo $REGISTRY)/$(echo $IMAGE_NAME)
