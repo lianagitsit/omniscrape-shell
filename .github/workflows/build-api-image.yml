@@ -3,9 +3,8 @@ name: Build and Push Docker Image
 # TODO: Make this workflow run only on changes to /server
 on:
   push:
-    branches: [main]
-      paths:
-        - "server/**"
+    paths:
+      - "server/**"
 
 # on:
 #   workflow_dispatch:
