@@ -125,7 +125,7 @@ function App() {
   return (
     <div className="App">
       <h1 className="App-header">
-        Lapey Bapey
+        How much is this one deck on this one site?
       </h1>
       <DeckSelect deck={deck} onSelect={handleDeckChange} />
       <SiteSelect site={site} onSelect={handleSiteChange} />
