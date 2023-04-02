@@ -1,17 +1,17 @@
 name: Build and Push Docker Image
 
 # TODO: Make this workflow run only on changes to /server
-# on:
-#   push:
-#     paths:
-#       - "server/**"
-
 on:
-  workflow_dispatch:
-    inputs:
-      version:
-        description: 'Image version'
-        required: true
+  push:
+    paths:
+      - "server/**"
+
+# on:
+#   workflow_dispatch:
+#     inputs:
+#       version:
+#         description: 'Image version'
+#         required: true
 
 env:
   REGISTRY: "registry.digitalocean.com/lgm-registry"
@@ -23,13 +23,15 @@ jobs:
     defaults:
       run:
         working-directory: server
+    env:
+      DATABASE_URL: ${{ secrets.PROD_DATABASE_URL }}
 
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
 
       - name: Build latest
-        run: docker build -t $(echo $REGISTRY)/$(echo $IMAGE_NAME) -f Dockerfile.prod .
+        run: docker build --build-arg DATABASE_URL=$DATABASE_URL -t $(echo $REGISTRY)/$(echo $IMAGE_NAME) -f Dockerfile.prod .
 
       - name: Install doctl 
         uses: digitalocean/action-doctl@v2
