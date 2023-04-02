@@ -1,13 +1,13 @@
 name: Deploy UI
 
-# on:
-#   push:
-#     branches:
-#       - main
-
 on:
-  workflow_dispatch:
-    inputs:
+  push:
+    paths:
+      - "ui/**"
+
+# on:
+#   workflow_dispatch:
+#     inputs:
 
 jobs:
   build-deploy:
