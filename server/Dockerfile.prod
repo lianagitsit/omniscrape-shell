@@ -3,6 +3,9 @@ FROM node:latest
 # Get the latest version of Playwright
 FROM mcr.microsoft.com/playwright:v1.30.0-focal
 
+ARG DATABASE_URL
+ENV DATABASE_URL=${DATABASE_URL}
+
 WORKDIR /app
 
 # Set the environment path to node_modules/.bin
